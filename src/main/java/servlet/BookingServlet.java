@@ -15,13 +15,21 @@ import dao.BookingDAO;
 
 @WebServlet("/BookingServlet")
 public class BookingServlet extends HttpServlet {
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String passengerName = request.getParameter("name");
         String trainName = request.getParameter("train");
+        String origin = request.getParameter("origin");
+        String destination = request.getParameter("destination");
+        String fare = request.getParameter("fare");
         
         try {
-			BookingDAO.addBooking(new Booking(passengerName, trainName));
+			BookingDAO.addBooking(new Booking(passengerName, trainName, Integer.parseInt(fare), origin, destination));
 		} catch (SQLException e) {
 			System.out.println("Error in booking.."+ e.getMessage());
 		}
@@ -35,3 +43,5 @@ public class BookingServlet extends HttpServlet {
         out.println("</body></html>");
     }
 }
+
+
